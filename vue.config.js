@@ -22,12 +22,5 @@ module.exports = defineConfig({
         rel: 'prefetch',
         include: 'asyncChunks'
       }]).after('html')
-  },
-
-  devServer: {
-    allowedHosts: 'all',
-    static: {
-      publicPath: '/'
-    }
   }
 });
