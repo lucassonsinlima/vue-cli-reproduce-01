@@ -1,11 +1,11 @@
 const { defineConfig } = require('@vue/cli-service');
-const VuePreloadWebpackPlugin = require('@vue/preload-webpack-plugin')
+const PreloadPlugin = require('@vue/preload-webpack-plugin')
 
 module.exports = defineConfig({
   chainWebpack(config) {
     config
       .plugin('preload')
-      .use(VuePreloadWebpackPlugin, [{
+      .use(PreloadPlugin, [{
         rel: 'preload',
         include: 'allChunks',
         fileBlacklist: [/\.map$/, /hot-update\.js$/, /^((?!first).)*$/],
@@ -15,12 +15,19 @@ module.exports = defineConfig({
           return 'script';
         }
       }]).after('html')
+
+    config
+      .plugin('prefetch')
+      .use(PreloadPlugin, [{
+        rel: 'prefetch',
+        include: 'asyncChunks'
+      }])
   },
 
   devServer: {
     allowedHosts: 'all',
     static: {
-      publicPath: 'https://app.companies.dev.revelo.io/'
+      publicPath: '/'
     }
   }
 });
