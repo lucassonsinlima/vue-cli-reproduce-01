@@ -21,7 +21,7 @@ module.exports = defineConfig({
       .use(PreloadPlugin, [{
         rel: 'prefetch',
         include: 'asyncChunks'
-      }])
+      }]).after('html')
   },
 
   devServer: {
